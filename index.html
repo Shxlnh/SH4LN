@@ -6,13 +6,11 @@
     <title>SH4LN - Artist Link</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
-        /* --- RESET --- */
         * {
             margin: 0;
             padding: 0;
@@ -20,38 +18,45 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Manrope', sans-serif;
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #050505; /* Deep black bg */
-            padding: 20px;
+            background-color: #050505;
             color: #fff;
             position: relative;
-            overflow-x: hidden;
         }
 
-        /* --- WALLPAPER --- */
+        /* Background - FIXED and MORE FADED */
         .bg-wallpaper {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: url('bbg.jpg') center / cover no-repeat;
-    opacity: 0.35;
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: url('bbg.jpg') center / cover no-repeat;
+            opacity: 0.15;
+            pointer-events: none;
+            transform: translateZ(0);
+        }
 
-    transform: translateZ(0);
-    will-change: transform;
-    pointer-events: none;
-}
+        /* Snow Canvas */
+        #snow-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-        /* --- MAIN CARD --- */
+        /* Main Card */
         .bento-container {
             display: flex;
-            width: 70%; /* <--- REQUESTED: 70% width */
+            width: 70%;
             max-width: 850px;
-            /* Dark Glass Effect instead of solid white */
             background: rgba(20, 20, 20, 0.6);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
@@ -62,16 +67,13 @@
             min-height: 500px;
             animation: popUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        /* --- LEFT SIDE: PROFILE --- */
+        /* Profile Side */
         .profile-side {
             width: 40%;
             padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            position: relative;
-            /* Image background for profile side */
             background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.9)), url('profile.jpg');
             background-size: cover;
             background-position: center;
@@ -91,9 +93,10 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .profile-info { margin-top: auto; }
+        .profile-info { 
+            margin-top: auto; 
+        }
 
-        /* NAME + VERIFICATION WRAPPER */
         .name-wrapper {
             display: flex;
             align-items: center;
@@ -109,13 +112,6 @@
             color: #fff;
         }
 
-        /* The Spotify-style Blue Check */
-        .verified-badge {
-            color: #3d91ff; /* Spotify/Twitter Blue */
-            font-size: 24px;
-            filter: drop-shadow(0 0 10px rgba(61, 145, 255, 0.4));
-        }
-
         .artist-role {
             font-size: 13px;
             opacity: 0.7;
@@ -123,11 +119,9 @@
             text-transform: uppercase;
         }
 
-
-        /* --- RIGHT SIDE: LINKS (Dark Mode) --- */
+        /* Links Side */
         .links-side {
             width: 60%;
-            /* Removed White BG -> Now Transparent/Dark */
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -163,32 +157,29 @@
             align-items: center;
             justify-content: space-between;
             padding: 16px 24px;
-            border-radius: 12px; /* Slightly squarer for modern look */
+            border-radius: 12px;
             text-decoration: none !important;
             transition: all 0.2s ease;
-            
-            /* DARK BUTTON STYLE */
             background: rgba(255, 255, 255, 0.03); 
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: #fff;
         }
 
-        /* Hover Effect */
         .smart-link:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(4px); /* Slide right instead of up */
+            transform: translateX(4px);
         }
         
-        /* Highlight the Primary Link (Spotify) */
         .smart-link.primary {
             background: #fff;
             color: #000;
             border-color: #fff;
         }
+
         .smart-link.primary:hover {
             background: #e6e6e6;
-            transform: scale(1.02); /* Pop effect for main button */
+            transform: scale(1.02);
         }
 
         .link-left {
@@ -197,14 +188,26 @@
             gap: 14px;
         }
         
-        .link-icon { font-size: 20px; width: 24px; text-align: center; }
-        .link-text { font-weight: 600; font-size: 15px; }
-        .link-arrow { font-size: 12px; opacity: 0.4; }
+        .link-icon { 
+            font-size: 20px; 
+            width: 24px; 
+            text-align: center; 
+        }
 
-        /* --- MOBILE RESPONSIVE --- */
+        .link-text { 
+            font-weight: 600; 
+            font-size: 15px; 
+        }
+
+        .link-arrow { 
+            font-size: 12px; 
+            opacity: 0.4; 
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 900px) {
             .bento-container {
-                width: 95%; /* Go back to full width on tablets/mobile */
+                width: 95%;
                 flex-direction: column;
             }
             .profile-side {
@@ -217,7 +220,9 @@
                 width: 100%;
                 padding: 30px 24px;
             }
-            .artist-title { font-size: 36px; }
+            .artist-title { 
+                font-size: 36px; 
+            }
         }
 
         @keyframes popUp {
@@ -229,6 +234,7 @@
 <body>
 
     <div class="bg-wallpaper"></div>
+    <canvas id="snow-canvas"></canvas>
 
     <div class="bento-container">
         
@@ -238,7 +244,6 @@
             <div class="profile-info">
                 <div class="name-wrapper">
                     <h1 class="artist-title">SH4LN</h1>
-                    <i class="name-divider"></i>
                 </div>
                 <p class="artist-role">Producer • Composer • Arranger</p>
             </div>
@@ -286,6 +291,104 @@
         </div>
 
     </div>
+
+    <script>
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let mouseX = -100;
+        let mouseY = -100;
+
+        // Snow particles
+        const snowflakes = [];
+        const particleCount = 80;
+
+        class Snowflake {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = -10;
+                this.size = Math.random() * 3 + 1;
+                this.speed = Math.random() * 1 + 0.5;
+                this.drift = Math.random() * 2 - 1;
+                this.opacity = Math.random() * 0.6 + 0.3;
+            }
+
+            update() {
+                // Move down and drift right to left
+                this.y += this.speed;
+                this.x += this.drift;
+
+                // Mouse interaction - snowflakes avoid cursor
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const minDistance = 80;
+
+                if (distance < minDistance) {
+                    const force = (minDistance - distance) / minDistance;
+                    this.x -= dx * force * 0.2;
+                    this.y -= dy * force * 0.2;
+                }
+
+                // Reset if out of bounds
+                if (this.y > canvas.height) {
+                    this.reset();
+                }
+                if (this.x > canvas.width + 10) {
+                    this.x = -10;
+                }
+                if (this.x < -10) {
+                    this.x = canvas.width + 10;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        // Create snowflakes
+        for (let i = 0; i < particleCount; i++) {
+            snowflakes.push(new Snowflake());
+        }
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            snowflakes.forEach(snowflake => {
+                snowflake.update();
+                snowflake.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 
 </body>
 </html>
