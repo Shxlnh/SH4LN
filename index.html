@@ -35,19 +35,16 @@
 
         /* --- WALLPAPER --- */
         .bg-wallpaper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            /* Dark moody background */
-            background-image: url('bbg.jpg'); 
-            background-size: cover;
-            background-position: center;
-            opacity:0.35;
-            
-        }
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: url('bbg.jpg') center / cover no-repeat;
+    opacity: 0.35;
+
+    transform: translateZ(0);
+    will-change: transform;
+    pointer-events: none;
+}
 
         /* --- MAIN CARD --- */
         .bento-container {
